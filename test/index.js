@@ -4,9 +4,11 @@ var path = require('path'),
 
 describe('mail-sender', function () {
     var options = {
-        host: 'outbound-relay.yandex.net',
-        port: 25
-    };
+            host: 'smtp.yandex.net',
+            port: 465
+        },
+        from = 'from@mail-sender.yandex.net',
+        to = ['to@mail-sender.yandex.net'];
 
     describe('initialization', function () {
         it('without options', function () {
@@ -116,7 +118,7 @@ describe('mail-sender', function () {
         var ms;
 
         before(function () {
-            ms = new MailSender(options);
+            ms = new MailSender('stub');
         });
 
         it('should fail', function (done) {
@@ -127,7 +129,7 @@ describe('mail-sender', function () {
         });
 
         it('should send', function (done) {
-            ms.sendHtml('from@bse-admin.yandex.net', ['to@bse-admin.yandex.net'], 'subject', 'body', function (error) {
+            ms.sendHtml(from, to, 'subject', 'body', function (error) {
                 should(error).not.be.ok;
                 done();
             });
@@ -138,7 +140,7 @@ describe('mail-sender', function () {
         var ms;
 
         before(function () {
-            ms = new MailSender(options);
+            ms = new MailSender('stub');
         });
 
         it('should fail', function (done) {
@@ -154,7 +156,7 @@ describe('mail-sender', function () {
                 path: path.join(__dirname, '../README.md')
             }];
 
-            ms.sendWithAttachments('from@bse-admin.yandex.net', ['to@bse-admin.yandex.net'], 'subject', '', attachments,
+            ms.sendWithAttachments(from, to, 'subject', '', attachments,
                 function (error) {
                     should(error).not.be.ok;
                     done();

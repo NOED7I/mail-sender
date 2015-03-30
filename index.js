@@ -2,6 +2,7 @@ var _ = require('lodash'),
     inherit = require('inherit'),
     nm = require('nodemailer'),
     transport = require('nodemailer-smtp-transport'),
+    stubTransport = require('nodemailer-stub-transport'),
     MailSender;
 
 module.exports = MailSender = inherit({
@@ -15,13 +16,20 @@ module.exports = MailSender = inherit({
 
         this._options = options;
 
-        if (!this._options['host']) {
+        // for testing purposes
+        if (this._options === 'stub') {
+            this._sender = new nm.createTransport(stubTransport());
+            return;
+        }
+
+        if (!this._options[ 'host' ]) {
             throw new Error('Host option was not set');
         }
 
-        if (!this._options['port']) {
+        if (!this._options[ 'port' ]) {
             throw new Error('Port option was not set');
         }
+
 
         this._sender = new nm.createTransport(
             transport(_.pick(_.extend({}, this.__self.baseOptions, this._options), ['host', 'port'])));
