@@ -1,4 +1,4 @@
-# -mail-sender
+# mail-sender
 E-Mail sending helper. Simple wrapper around nodemailer module
 
 [![NPM](https://nodei.co/npm/bem-site-mail-sender.png)](https://nodei.co/npm/bem-site-mail-sender/)
