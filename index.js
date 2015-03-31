@@ -17,19 +17,18 @@ module.exports = MailSender = inherit({
         this._options = options;
 
         // for testing purposes
-        if (this._options === 'stub') {
+        if (this._options.host === 'stub') {
             this._sender = new nm.createTransport(stubTransport());
             return;
         }
 
-        if (!this._options[ 'host' ]) {
+        if (!this._options['host']) {
             throw new Error('Host option was not set');
         }
 
-        if (!this._options[ 'port' ]) {
+        if (!this._options['port']) {
             throw new Error('Port option was not set');
         }
-
 
         this._sender = new nm.createTransport(
             transport(_.pick(_.extend({}, this.__self.baseOptions, this._options), ['host', 'port'])));

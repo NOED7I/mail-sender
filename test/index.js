@@ -118,7 +118,7 @@ describe('mail-sender', function () {
         var ms;
 
         before(function () {
-            ms = new MailSender('stub');
+            ms = new MailSender({ host: 'stub' });
         });
 
         it('should fail', function (done) {
@@ -140,7 +140,7 @@ describe('mail-sender', function () {
         var ms;
 
         before(function () {
-            ms = new MailSender('stub');
+            ms = new MailSender({ host: 'stub' });
         });
 
         it('should fail', function (done) {
